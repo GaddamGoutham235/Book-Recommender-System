@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request
 import pickle
 import numpy as np
+import gzip
 
 # Load required data
 popular_df = pickle.load(open('popular.pkl', 'rb'))
 pt = pickle.load(open('pt.pkl', 'rb'))
-books = pickle.load(open('books.pkl', 'rb'))
+with gzip.open('books.pkl.gz', 'rb') as f:
+    books = pickle.load(f)
 similarity_scores = pickle.load(open('similarity_scores.pkl', 'rb'))
 
 app = Flask(__name__)
